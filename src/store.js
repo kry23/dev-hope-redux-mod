@@ -1,20 +1,17 @@
-import { createStore, combineReducers } from "redux";
-import counterReducer from "./CounterReducer";
-import todosReducer from "./ToDoReducer";
+import { createStore } from "redux";
+import counterReducer, { incrementCounter } from "./CounterReducer";
 
-const rootReducer = combineReducers({
-  counter: counterReducer,
-  todos: todosReducer,
-});
+const store = createStore(counterReducer);
 
-export const store = createStore(rootReducer);
+const handleStateUpdate = () => {
+  const state = store.getState();
+  console.log("State updated:", state);
+};
 
-store.dispatch({ type: "INCREMENT_COUNTER" });
+const unsubscribe = store.subscribe(handleStateUpdate);
 
-store.dispatch({
-  type: "ADD_TODO",
-  payload: { id: 1, title: "go to market" },
-});
+store.dispatch(incrementCounter());
 
-const state = store.getState();
-console.log(state);
+store.dispatch(incrementCounter());
+
+unsubscribe();
