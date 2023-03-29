@@ -23,7 +23,7 @@ export const resetCounter = () => {
   };
 };
 
-export const counterReducer = (state = initialState, action) => {
+const counterReducer = (state = initialState, action) => {
   switch (action.type) {
     case INCREMENT_COUNTER: {
       return state + action.payload;
@@ -42,3 +42,4 @@ export const counterReducer = (state = initialState, action) => {
     }
   }
 };
+export default counterReducer;
