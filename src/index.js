@@ -1,18 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import {Provider} from 'react-redux'
-import store from './store';
-import App from './App';
+import React from "react";
+import ReactDOM from "react-dom/client";
 
+import App from "./App";
+import {
+  decrementCounter,
+  incrementCounter,
+  resetCounter,
+} from "./CounterReducer";
+import { store } from "./store";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-<Provider store={store}>
-  <App />
+const root = ReactDOM.createRoot(document.getElementById("root"));
+// root.render(<App />);
+store.dispatch(incrementCounter(1));
+store.dispatch(decrementCounter(2));
 
-</Provider>
+store.dispatch(resetCounter());
 
-);
-
-
-
+store.subscribe(() => {
+  console.log(store.getState());
+});
